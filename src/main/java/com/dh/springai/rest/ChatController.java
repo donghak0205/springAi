@@ -67,7 +67,8 @@ public class ChatController {
 
     @PostMapping(value = "/emotion", produces = MediaType.APPLICATION_JSON_VALUE)
     ChatService.EmotionEvaluation emotion(@RequestBody @Valid PromptBody promptBody){
-        return chatService.callEmotionEvaluation(buildPrompt(promptBody), promptBody.conversationId());
+        return this.chatService.callEmotionEvaluation(buildPrompt(promptBody), promptBody.conversationId());
+        //return this.chatService.callEmotionEvaluation(Prompt.builder().build(), promptBody.conversationId());
     }
 
 }

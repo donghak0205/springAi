@@ -36,8 +36,7 @@ public class ChatService {
     //Structured Output Converter
     public enum Emotion {VERY_NEGATIVE, NEGATIVE, NEUTRAL, POSITIVE, VERY_POSITIVE}
 
-    public record EmotionEvaluation(Emotion emotion, List<String> reason){
-    }
+    public record EmotionEvaluation(Emotion emotion, List<String> reason){}
 
     public EmotionEvaluation callEmotionEvaluation(Prompt prompt, String conversationId){
         return buildChatClientRequestSpec(prompt, conversationId).call().entity(EmotionEvaluation.class);
