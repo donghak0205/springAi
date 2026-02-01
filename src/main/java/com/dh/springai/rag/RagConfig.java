@@ -1,6 +1,8 @@
 package com.dh.springai.rag;
 
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.document.DocumentTransformer;
+import org.springframework.ai.model.transformer.KeywordMetadataEnricher;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,11 @@ public class RagConfig {
 
     @Bean
     public DocumentTransformer tokenSplitter(){
-        return new TokenTextSplitter();
+        return new LengthTokenTextSplitter(200, 100);
+    }
+
+    @Bean
+    public DocumentTransformer keyMetadataEnricher(ChatModel chatModel){
+        return new KeywordMetadataEnricher(chatModel, 4);
     }
 }
