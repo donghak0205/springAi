@@ -5,13 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.document.DocumentTransformer;
 import org.springframework.ai.document.DocumentWriter;
+import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.model.transformer.KeywordMetadataEnricher;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
+import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ai.document.DocumentReader;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -51,5 +55,9 @@ public class RagConfig {
         };
     }
 
+    @Bean
+    public DocumentWriter vectorStore(EmbeddingModel embeddingModel){
+        return SimpleVectorStore.builder(embeddingModel).build();
+    }
 
 }
