@@ -96,9 +96,9 @@ public class RagConfig {
             , ChatClient.Builder chatClientBuilder, Optional<DocumentPostProcessor> printDocumentPostProcessor){
 
         RetrievalAugmentationAdvisor.Builder documentRetrieverBuilder = RetrievalAugmentationAdvisor.builder()
-                .queryExpander(MultiQueryExpander.builder().chatClientBuilder(chatClientBuilder).build())
-                .queryTransformers(TranslationQueryTransformer.builder().chatClientBuilder(chatClientBuilder)
-                        .targetLanguage("korean").build())
+//                .queryExpander(MultiQueryExpander.builder().chatClientBuilder(chatClientBuilder).build())
+//                .queryTransformers(TranslationQueryTransformer.builder().chatClientBuilder(chatClientBuilder)
+//                        .targetLanguage("korean").build())
                 .queryAugmenter(ContextualQueryAugmenter.builder().allowEmptyContext(true).build())
                 .documentRetriever(
                         VectorStoreDocumentRetriever.builder().vectorStore(vectorStore).similarityThreshold(0.3).topK(3)
