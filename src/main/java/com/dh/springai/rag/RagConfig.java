@@ -71,6 +71,7 @@ public class RagConfig {
 //        return SimpleVectorStore.builder(embeddingModel).build();
 //    }
 
+    @ConditionalOnProperty(prefix = "app.vectorstore.in-memory", name = "enabled", havingValue="true")
     @Bean
     public VectorStore vectorStore(EmbeddingModel embeddingModel) {
         return SimpleVectorStore.builder(embeddingModel).build();
