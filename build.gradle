@@ -32,6 +32,9 @@ dependencies {
     implementation "org.springframework.ai:spring-ai-vector-store"
     implementation "org.springframework.ai:spring-ai-tika-document-reader"
     implementation "org.springframework.ai:spring-ai-rag"
+    implementation "org.springframework.ai:spring-ai-starter-vector-store-elasticsearch"
+    //implementation "co.elastic.clients:elasticsearch-java:8.15.5"
+    implementation "co.elastic.clients:elasticsearch-java:8.18.3"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
