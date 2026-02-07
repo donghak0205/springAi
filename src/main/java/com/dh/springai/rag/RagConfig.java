@@ -71,14 +71,20 @@ public class RagConfig {
 //        return SimpleVectorStore.builder(embeddingModel).build();
 //    }
 
-    @ConditionalOnProperty(prefix = "app.vectorstore.in-memory", name = "enabled", havingValue="true")
     @Bean
-    public VectorStore vectorStore(EmbeddingModel embeddingModel) {
-        return SimpleVectorStore.builder(embeddingModel).build();
+    public DocumentWriter vectorStoreWriter(VectorStore vectorStore) {
+        return vectorStore::add;   // documents -> vectorStore.add(documents)
     }
+
+//    @ConditionalOnProperty(prefix = "app.vectorstore.in-memory", name = "enabled", havingValue="true")
+//    @Bean
+//    public VectorStore vectorStore(EmbeddingModel embeddingModel) {
+//        return SimpleVectorStore.builder(embeddingModel).build();
+//    }
 
 
     @Order(1)
+    @ConditionalOnProperty(prefix="app.ingest", name="enabled", havingValue="true")
     @Bean
     public ApplicationRunner initEtlPipeline(DocumentReader[] documentReaders, DocumentTransformer tokenSplitter,
                                              DocumentTransformer keywordMetadataEnricher, DocumentWriter[] documentWriters ){
@@ -117,12 +123,11 @@ public class RagConfig {
             System.out.println("\n[ Search Results ] ");
             System.out.println("============================================");
 
-            if(documents != null || documents.isEmpty()){
+            if(documents == null || documents.isEmpty()){
                 System.out.println("           No search results found.");
                 System.out.println("============================================");
                 return documents;
             }
-
 
             for(int i=0; i<documents.size(); i++){
                 Document document = documents.get(i);
